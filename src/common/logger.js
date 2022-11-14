@@ -1,35 +1,35 @@
-import chalk from 'chalk';
+const chalk = require('chalk');
 
 /**
- *  @date 22-07-2022
+ *  @date 14-11-2022
  *  @desc Log used for Success
 **/
-async function success(requestName: string, params?: any) {
+async function success(requestName, params) {
     console.log(chalk.green(requestName, JSON.stringify(params)));
 }
 
 /**
- *  @date 22-07-2022
+ *  @date 14-11-2022
  *  @desc Log used for Success
 **/
-async function error(requestName: string, params?: any) {
+async function error(requestName, params) {
     console.log(chalk.red(requestName, JSON.stringify(params)));
 }
 
 /**
- *  @date 22-07-2022
+ *  @date 14-11-2022
  *  @desc Log used for Success
 **/
-async function warning(requestName: string, params?: any) {
+async function warning(requestName, params) {
     console.log(chalk.magenta(requestName, JSON.stringify(params)));
 }
 
 /**
- *  @date 22-07-2022
+ *  @date 14-11-2022
  *  @desc Log used for Success
 **/
-async function info(requestName: string, params?: any) {
+async function info(requestName, params) {
     console.log(chalk.yellowBright(requestName, JSON.stringify(params)));
 }
 
-export { success, error, warning, info };
+module.exports = { success, error, warning, info };
