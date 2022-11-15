@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-// const { sequelizeConnection } = require('../connection/database');
 const { applyForeignKeySetup } = require('./reference');
 const logger = require('./../common/logger');
 
@@ -21,14 +20,15 @@ const connSequelize = new Sequelize(dbName, dbUser, dbPassword, {
 });
 
 const modelDefiners = [
-    require('./model/user')
+    require('./model/user'),
+    require('./model/report')
 ];
 
 for (const modelDefiner of modelDefiners) {
     modelDefiner(connSequelize);
 }
 
-// applyForeignKeySetup(connSequelize);
+applyForeignKeySetup(connSequelize);
 
 connSequelize.sync({ force: true })
     .then(() => {

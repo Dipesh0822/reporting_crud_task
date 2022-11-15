@@ -1,28 +1,31 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = async (sequelize) => {
-    const user = sequelize.define('users', {
+    const report = sequelize.define('reports', {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
-            primaryKey: true
+            primaryKey: true,
         },
-        email: {
+        short_title: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                isEmail: true
-            }
+            allowNull: false
+        },
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
         status: {
             type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: "ACTIVE"
+            allowNull: false
         },
-        country_code: {
+        paramaters: {
             type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: "IN"
+            allowNull: false
+        },
+        sql_string: {
+            type: DataTypes.TEXT,
+            allowNull: false
         },
         created_at: {
             type: DataTypes.DATEONLY,
@@ -32,6 +35,6 @@ module.exports = async (sequelize) => {
             type: DataTypes.DATEONLY,
             defaultValue: DataTypes.NOW,
         }
-    }, { tableName: 'users', timestamps: false });
-    return user;
+    }, { tableName: 'reports', timestamps: false });
+    return report;
 };

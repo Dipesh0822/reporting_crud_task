@@ -1,22 +1,20 @@
 
-require('dotenv').config();
-let Sequelize = require('sequelize');
+
+const initConnection = require("./../database/init");
+const logger = require("./../common/logger");
 
 /**
  *  @date 14-11-2022
  *  @desc Enviorment Database
 **/
-const dbName = process.env.TEST_DB_NAME;
-const dbUser = process.env.DB_USER;
-const dbHost = process.env.DB_HOST;
-const dbPort = process.env.DB_PORT;
-const dbDriver = process.env.DB_DRIVER;
-const dbPassword = process.env.DB_PASSWORD;
-const sequelizeConnection = new Sequelize(dbName, dbUser, dbPassword, {
-    "host": dbHost,
-    "port": Number(dbPort),
-    "dialect": dbDriver,
-    "quoteIdentifiers": false
-});
+const sequelizeConnection = async () => {
+    try {
+        await initConnection.authenticate();
+        logger.success(`Connect Database`);
+    } catch (error) {
+        logger.error(`Unable to connect database : ${error.message}`);
+        process.exit(1);
+    }
+}
 
-module.exports = sequelizeConnection;
+module.exports = { sequelizeConnection };

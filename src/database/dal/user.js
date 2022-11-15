@@ -38,7 +38,7 @@ const getAll = async (filters) => {
     }
     return models.users.findAll({
         limit: 10,
-        offset: 0
+        offset: page
     })
 }
 

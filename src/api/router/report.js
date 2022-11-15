@@ -1,14 +1,15 @@
 
 
-const userRouter = require("express").Router();
-const { getAll, getById, update, deleteById, create } = require('./../controller/user')
+const reportRouter = require("express").Router();
+const { executeReport } = require("../../common/report");
+const { getAll, getById, update, deleteById, create, report } = require('./../controller/report');
 
 /**
  * 
  * @desc Get Data
  * 
  */
-userRouter.get('/', async (req, res) => {
+reportRouter.get('/', async (req, res) => {
     const filters = req.query
     const results = await getAll(filters)
     return res.status(200).send(results)
@@ -19,7 +20,7 @@ userRouter.get('/', async (req, res) => {
  * @desc Get Single Data
  * 
  */
-userRouter.get('/:id', async (req, res) => {
+reportRouter.get('/:id', async (req, res) => {
     try {
         const id = Number(req.params.id)
         const result = await getById(id)
@@ -36,7 +37,7 @@ userRouter.get('/:id', async (req, res) => {
  * @desc Update Single Data
  * 
  */
-userRouter.put('/:id', async (req, res) => {
+reportRouter.put('/:id', async (req, res) => {
     try {
         const id = Number(req.params.id)
         const result = await update(id, req.body)
@@ -53,7 +54,7 @@ userRouter.put('/:id', async (req, res) => {
  * @desc Delete Single Data
  * 
  */
-userRouter.delete('/:id', async (req, res) => {
+reportRouter.delete('/:id', async (req, res) => {
     const id = Number(req.params.id)
     const result = await deleteById(id)
     return res.status(200).send({
@@ -66,7 +67,7 @@ userRouter.delete('/:id', async (req, res) => {
  * @desc Create One Data
  * 
  */
-userRouter.post('/', async (req, res) => {
+reportRouter.post('/', async (req, res) => {
     try {
         const result = await create(req.body)
         return res.status(200).send(result)
@@ -78,4 +79,24 @@ userRouter.post('/', async (req, res) => {
 
 });
 
-module.exports = userRouter;
+/**
+ * 
+ * @desc Create Report
+ * 
+ */
+reportRouter.post('/execute', async (req, res) => {
+    try {
+        const { id: primaryId, parameters, limit, offset } = req.body
+        const strSql = await getById(primaryId)
+        const finalQuery = await executeReport(req.body, strSql.sql_string)
+        const result = await report(finalQuery)
+        return res.status(200).send(result)
+    } catch (error) {
+        return res.status(500).send({
+            message: "Report Create Error."
+        });
+    }
+
+});
+
+module.exports = reportRouter;
