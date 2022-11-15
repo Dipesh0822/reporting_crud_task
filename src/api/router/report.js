@@ -27,7 +27,7 @@ reportRouter.get('/:id', async (req, res) => {
         return res.status(200).send(result)
     } catch (error) {
         return res.status(500).send({
-            message: "User Get Error."
+            message: "Report Get Error."
         });
     }
 });
@@ -44,7 +44,7 @@ reportRouter.put('/:id', async (req, res) => {
         return res.status(200).send(result)
     } catch (error) {
         return res.status(500).send({
-            message: "User Update Error."
+            message: "Report Update Error."
         });
     }
 });
@@ -73,7 +73,7 @@ reportRouter.post('/', async (req, res) => {
         return res.status(200).send(result)
     } catch (error) {
         return res.status(500).send({
-            message: "User Create Error."
+            message: "Report Create Error."
         });
     }
 

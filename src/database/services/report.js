@@ -8,7 +8,7 @@ const create = async (payload) => {
     let short_title = payload.short_title
     const titleExists = await checkShortTitleExists(short_title)
     if (!titleExists) {
-        throw new Error('User is already exist')
+        throw new Error('Report is already exist')
     }
     return queryCreate(payload)
 }
