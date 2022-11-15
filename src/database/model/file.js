@@ -1,28 +1,26 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = async (sequelize) => {
-    const ticket = sequelize.define('tickets', {
+    const file = sequelize.define('files', {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        title: {
+        group: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        description: {
-            type: DataTypes.TEXT
+        sub_group: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
-        status: {
-            type: DataTypes.ENUM('created', 'assign', 'backlog', 'working', 'completed', 'pending'),
-            allowNull: false,
-            defaultValue: 'created'
+        filename: {
+            type: DataTypes.STRING
         },
-        priority: {
-            type: DataTypes.ENUM('normal', 'medium', 'high'),
-            allowNull: false,
-            defaultValue: 'normal'
+        url_to_aws: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
         created_at: {
             type: DataTypes.DATEONLY,
@@ -32,6 +30,6 @@ module.exports = async (sequelize) => {
             type: DataTypes.DATEONLY,
             defaultValue: DataTypes.NOW,
         }
-    }, { tableName: 'tickets', timestamps: false });
-    return ticket;
+    }, { tableName: 'files', timestamps: false });
+    return file;
 };

@@ -23,7 +23,8 @@ const modelDefiners = [
     require('./model/user'),
     require('./model/report'),
     require('./model/ticket'),
-    require('./model/reply')
+    require('./model/reply'),
+    require('./model/file')
 ];
 
 for (const modelDefiner of modelDefiners) {

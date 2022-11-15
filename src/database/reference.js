@@ -1,14 +1,14 @@
 function applyForeignKeySetup(connSequelize) {
-	const { tickets, replies } = connSequelize.models;
+	const { tickets, replies, users, files } = connSequelize.models;
 	tickets.hasMany(replies, { constraints: true, foreignKey: { name: 'ticket_id', allowNull: false } });
 	replies.belongsTo(tickets, { constraints: true, foreignKey: { name: 'ticket_id', allowNull: false } });
-	// Meditation.hasMany(User, { constraints: true, foreignKey: { name: 'MEDITATION_ID', allowNull: false } });
-	// User.belongsTo(Meditation, { constraints: true, foreignKey: { name: 'MEDITATION_ID', allowNull: false } });
-	// Meditation.hasMany(User, { constraints: true, foreignKey: { name: 'NEXT_MEDITATION_ID', allowNull: false } });
-	// User.belongsTo(Meditation, { constraints: true, foreignKey: { name: 'NEXT_MEDITATION_ID', allowNull: false } });
-	// Company.hasOne(Admin, { constraints: true, foreignKey: { name: 'COMPANY_ID', allowNull: true } });
-	// Admin.belongsTo(Company, { constraints: true, foreignKey: { name: 'COMPANY_ID', allowNull: true } });
-	// Company.hasOne(User, { constraints: true, foreignKey: { name: 'COMPANY_ID', allowNull: true } });
-	// User.belongsTo(Company, { constraints: true, foreignKey: { name: 'COMPANY_ID', allowNull: true } });
+	users.hasMany(tickets, { constraints: true, foreignKey: { name: 'user_id', allowNull: false } });
+	tickets.belongsTo(users, { constraints: true, foreignKey: { name: 'user_id', allowNull: false } });
+	users.hasMany(replies, { constraints: true, foreignKey: { name: 'user_id', allowNull: false } });
+	replies.belongsTo(users, { constraints: true, foreignKey: { name: 'user_id', allowNull: false } });
+	files.hasMany(tickets, { constraints: true, foreignKey: { name: 'file_id', allowNull: true } });
+	tickets.belongsTo(files, { constraints: true, foreignKey: { name: 'file_id', allowNull: true } });
+	files.hasMany(replies, { constraints: true, foreignKey: { name: 'file_id', allowNull: true } });
+	replies.belongsTo(files, { constraints: true, foreignKey: { name: 'file_id', allowNull: true } });
 }
 module.exports = { applyForeignKeySetup };
