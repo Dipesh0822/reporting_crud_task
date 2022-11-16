@@ -21,10 +21,7 @@ const connSequelize = new Sequelize(dbName, dbUser, dbPassword, {
 
 const modelDefiners = [
     require('./model/user'),
-    require('./model/report'),
-    require('./model/ticket'),
-    require('./model/reply'),
-    require('./model/file')
+    require('./model/report')
 ];
 
 for (const modelDefiner of modelDefiners) {
