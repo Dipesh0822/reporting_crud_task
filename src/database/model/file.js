@@ -11,7 +11,7 @@ module.exports = async (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        sub_group: {
+        subgroup: {
             type: DataTypes.STRING,
             allowNull: false
         },

@@ -1,4 +1,5 @@
 const fileRouter = require("express").Router();
+const { startUploadSingleFile } = require("./../../common/upload");
 const { getAll, getById, deleteById, create } = require('./../controller/file');
 
 /**
@@ -49,8 +50,23 @@ fileRouter.delete('/:id', async (req, res) => {
  */
 fileRouter.post('/', async (req, res) => {
     try {
-        const result = await create(req.body)
-        return res.status(200).send(result)
+        var imageResponse = await startUploadSingleFile(req, res);
+        if (imageResponse.status) {
+            if (imageResponse.data.status) {
+                const result = await create(imageResponse.data.data)
+                return res.status(200).send(result)
+            } else {
+                return res.status(500).send({
+                    message: "File Upload Issue."
+                })
+            }
+        } else {
+            return res.status(500).send({
+                message: "File Upload Issue."
+            })
+        }
+
+
     } catch (error) {
         return res.status(500).send({
             message: "File Create Error."
